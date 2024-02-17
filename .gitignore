@@ -1,0 +1,33 @@
+# Node Dependencies
+node_modules/
+package-lock.json
+
+# Build output 
+/build
+
+# Common OS generated files
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directory used by tools like IntelliJ
+.idea
+
+# Other environment-specific files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+# Server runtime data (if applicable)
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Visual Studio Code specific settings
+.vscode/
