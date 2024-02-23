@@ -17,13 +17,15 @@ function App() {
     <div className="App">
       <ThemeProvider theme={createTheme(theme)}>
         <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/create-recipe" element={<CreateRecipe />} />
-            <Route path="/saved-recipes" element={<SavedRecipes />} />
-          </Routes>
+          <Navbar sx={{ paddingTop: "10em" }} />
+          <div className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/create-recipe" element={<CreateRecipe />} />
+              <Route path="/saved-recipes" element={<SavedRecipes />} />
+            </Routes>
+          </div>
         </Router>
       </ThemeProvider>
     </div>

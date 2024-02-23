@@ -1,7 +1,6 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
+import { Button, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function BasicMenu() {
@@ -34,9 +33,15 @@ export default function BasicMenu() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/">Home</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/create-recipe">Create Recipe</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/saved-recipes">Saved Recipes</Link>
+        </MenuItem>
       </Menu>
     </div>
   );
