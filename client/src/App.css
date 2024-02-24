@@ -11,7 +11,7 @@ a {
 }
 
 .main-content {
-  margin-top: 2.5em; /* Adjust the height as needed */
+  margin-top: 2.5em;
 }
 
 .logo {
@@ -20,9 +20,11 @@ a {
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -31,6 +33,7 @@ a {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

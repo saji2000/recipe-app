@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { light, dark } from "./theme";
@@ -11,13 +11,32 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 
 function App() {
-  const [theme, setTheme] = useState(light);
+  const prefersDark =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e) => {
+      setTheme(e.matches ? "dark" : "light");
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.addEventListener("change", handleChange);
+  }, []);
+  const [theme, setTheme] = useState(prefersDark ? dark : light);
+  // const [theme, setTheme] = useState(light);
+
+  const toggleTheme = () => {
+    setTheme(theme === light ? dark : light);
+  };
 
   return (
     <div className="App">
       <ThemeProvider theme={createTheme(theme)}>
         <Router>
-          <Navbar sx={{ paddingTop: "10em" }} />
+          <Navbar sx={{ paddingTop: "10em" }} toggleTheme={toggleTheme} />
           <div className="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
