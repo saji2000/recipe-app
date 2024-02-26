@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
 
 const Auth = () => {
   return (
@@ -11,17 +12,61 @@ const Auth = () => {
 };
 
 const Login = () => {
-  return <div></div>;
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+    <Form
+      username={username}
+      password={password}
+      setUsername={setUsername}
+      setPassword={setPassword}
+      label="Login"
+    />
+  );
 };
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.post("http://localhost:3005/auth/register", {
+        username: username,
+        password: password,
+      });
+      alert("Registration Completed!");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <Form
+      username={username}
+      password={password}
+      setUsername={setUsername}
+      setPassword={setPassword}
+      label="Register"
+      onSubmit={onSubmit}
+    />
+  );
+};
+
+const Form = ({
+  username,
+  setUsername,
+  password,
+  setPassword,
+  label,
+  onSubmit,
+}) => {
   return (
     <div className="atuh-container">
-      <form>
-        <h2>Register</h2>
+      <form onSubmit={onSubmit}>
+        <h2>{label}</h2>
         <div className="form-group">
           <label htmlFor="username">Username: </label>
           <input
