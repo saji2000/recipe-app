@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   return (
@@ -15,6 +17,25 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [_, setCookies] = useCookies(["access_token"]);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:3003/auth/login", {
+        username: username,
+        password: password,
+      });
+      setCookies("access_token", response.data.token);
+      window.localStorage.setItem("userId", response.data.userId);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <Form
       username={username}
@@ -22,6 +43,7 @@ const Login = () => {
       setUsername={setUsername}
       setPassword={setPassword}
       label="Login"
+      onSubmit={onSubmit}
     />
   );
 };
@@ -33,13 +55,14 @@ const Register = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3005/auth/register", {
+      await axios.post("http://localhost:3003/auth/register", {
         username: username,
         password: password,
       });
+
       alert("Registration Completed!");
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -81,7 +104,7 @@ const Form = ({
         <div className="form-group">
           <label htmlFor="Password">Password: </label>
           <input
-            type="text"
+            type="password"
             id="Password"
             value={password}
             onChange={(e) => {

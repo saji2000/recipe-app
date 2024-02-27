@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import BasicMenu from "./BasicMenu";
 import {
   AppBar,
@@ -13,6 +14,7 @@ import {
 const Navbar = ({ toggleTheme }) => {
   const theme = useTheme();
 
+  const [cookies, setCookies] = useCookies(["access_token"]);
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -27,11 +29,17 @@ const Navbar = ({ toggleTheme }) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Recipes App
             </Typography>
-            <Link to="/auth">
+            {!cookies.access_token ? (
+              <Link to="/auth">
+                <Button variant="contained" color="button">
+                  Login
+                </Button>
+              </Link>
+            ) : (
               <Button variant="contained" color="button">
-                Login
+                Log out
               </Button>
-            </Link>
+            )}
           </Toolbar>
         </AppBar>
       </Box>
