@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+
 import BasicMenu from "./BasicMenu";
 import {
   AppBar,
@@ -15,6 +17,12 @@ const Navbar = ({ toggleTheme }) => {
   const theme = useTheme();
 
   const [cookies, setCookies] = useCookies(["access_token"]);
+
+  const logout = () => {
+    setCookies("access_token", "");
+    window.localStorage.removeItem("userID");
+    Navigate("/auth");
+  };
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -36,7 +44,7 @@ const Navbar = ({ toggleTheme }) => {
                 </Button>
               </Link>
             ) : (
-              <Button variant="contained" color="button">
+              <Button variant="contained" color="button" onClick={logout}>
                 Log out
               </Button>
             )}
