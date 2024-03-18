@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
   const { username, password } = req.body;
   const user = await UserModel.findOne({ username: username });
   if (user) {
-    return res.json({ message: "User already registered" });
+    return res.status(401).json({ message: "User already registered" });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -45,13 +45,13 @@ router.post("/login", async (req, res) => {
   const user = await UserModel.findOne({ username: username });
 
   if (!user) {
-    return res.json({ message: "Username or password incorrect" });
+    return res.status(401).json({ message: "Username or password incorrect" });
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    return res.json({ message: "Username or password incorrect" });
+    return res.status(401).json({ message: "Username or password incorrect" });
   }
 
   const token = jwt.sign({ id: user._id }, JWT_SECRET);
