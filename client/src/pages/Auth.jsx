@@ -28,11 +28,13 @@ const Login = () => {
         username,
         password,
       });
-      console.log(result);
       setCookies("access_token", result.data.token);
       window.localStorage.setItem("userID", result.data.userID);
       navigate("/");
     } catch (error) {
+      if (error.response.status === 401) {
+        alert("Invalid Username or Password");
+      }
       console.error(error);
     }
   };
@@ -81,6 +83,9 @@ const Register = () => {
       });
       alert("Registration Completed! Now login.");
     } catch (error) {
+      if (error.response.status === 401) {
+        alert("Username taken, try another username");
+      }
       console.error(error);
     }
   };
