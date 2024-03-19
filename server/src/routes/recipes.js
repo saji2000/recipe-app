@@ -13,4 +13,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const newRecipe = new RecipeModel(req.body);
+    await newRecipe.save();
+    res.json({ message: "Recipe saved successfully" });
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 export { router as recipesRouter };
