@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
+// Create Recipe Page
 const CreateRecipes = () => {
   const [recipe, setRecipe] = useState({
     name: "",
