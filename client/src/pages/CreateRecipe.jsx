@@ -16,6 +16,8 @@ const CreateRecipes = () => {
     const { name, value } = e.target.value;
     setRecipe({ ...recipe, [name]: value });
   };
+
+  const handleSubmit = (e) => {};
   return (
     <div className="create-recipe">
       <h2>Create Recipe</h2>
@@ -28,13 +30,6 @@ const CreateRecipes = () => {
           value={recipe.name}
           onChange={handleChange}
         />
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
-          value={recipe.description}
-          onChange={handleChange}
-        ></textarea>
         <label htmlFor="ingredients">Ingredients</label>
         {recipe.ingredients.map((ingredient, index) => (
           <input
@@ -42,10 +37,10 @@ const CreateRecipes = () => {
             type="text"
             name="ingredients"
             value={ingredient}
-            onChange={(event) => handleIngredientChange(event, index)}
+            onChange={(event) => handleChange(event, index)}
           />
         ))}
-        <button type="button" onClick={handleAddIngredient}>
+        <button type="button" onClick={handleChange}>
           Add Ingredient
         </button>
         <label htmlFor="instructions">Instructions</label>
