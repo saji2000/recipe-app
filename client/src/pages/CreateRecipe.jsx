@@ -13,7 +13,7 @@ const CreateRecipes = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target.value;
+    const { name, value } = e.target;
     setRecipe({ ...recipe, [name]: value });
   };
 
