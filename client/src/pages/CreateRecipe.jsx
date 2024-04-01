@@ -17,6 +17,20 @@ const CreateRecipes = () => {
     setRecipe({ ...recipe, [name]: value });
   };
 
+  const handleIngredientChange = (e, index) => {
+    const { value } = e.target;
+    const ingredients = recipe.ingredients;
+    ingredients[index] = value;
+    setRecipe({ ...recipe, ingredients: ingredients });
+  };
+
+  const addIngredient = (e) => {
+    setRecipe({
+      ...recipe,
+      ingredients: [...recipe.ingredients, ""],
+    });
+  };
+
   const handleSubmit = (e) => {};
   return (
     <div className="create-recipe">
@@ -37,10 +51,10 @@ const CreateRecipes = () => {
             type="text"
             name="ingredients"
             value={ingredient}
-            onChange={(event) => handleChange(event, index)}
+            onChange={(event) => handleIngredientChange(event, index)}
           />
         ))}
-        <button type="button" onClick={handleChange}>
+        <button type="button" onClick={addIngredient}>
           Add Ingredient
         </button>
         <label htmlFor="instructions">Instructions</label>
