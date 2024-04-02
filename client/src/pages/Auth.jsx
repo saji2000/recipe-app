@@ -29,7 +29,7 @@ const Login = () => {
         password,
       });
       setCookies("access_token", result.data.token);
-      window.localStorage.setItem("userID", result.data.userID);
+      window.localStorage.setItem("userID", result.data.userId);
       navigate("/");
     } catch (error) {
       if (error.response.status === 401) {

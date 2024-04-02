@@ -1,15 +1,18 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
+import { useGetUser } from "../hooks/useGetUser";
 
 // Create Recipe Page
 const CreateRecipes = () => {
+  const userId = useGetUser();
   const [recipe, setRecipe] = useState({
     name: "",
     ingredients: [],
     instructions: "",
     imageUrl: "",
     cookingTime: 0,
-    user: 0,
+    user: userId,
   });
 
   const handleChange = (e) => {
@@ -24,14 +27,22 @@ const CreateRecipes = () => {
     setRecipe({ ...recipe, ingredients: ingredients });
   };
 
-  const addIngredient = (e) => {
+  const addIngredient = () => {
     setRecipe({
       ...recipe,
       ingredients: [...recipe.ingredients, ""],
     });
   };
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("https://localhost:3003/recipes", recipe);
+      alert("recipes successfully created");
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <div className="create-recipe">
       <h2>Create Recipe</h2>

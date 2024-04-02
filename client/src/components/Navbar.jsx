@@ -18,10 +18,12 @@ const Navbar = ({ toggleTheme }) => {
 
   const [cookies, setCookies] = useCookies(["access_token"]);
 
+  const navigate = useNavigate();
+
   const logout = () => {
     setCookies("access_token", "");
     window.localStorage.removeItem("userID");
-    Navigate("/auth");
+    navigate("/auth");
   };
   return (
     <div>
