@@ -10,7 +10,7 @@ const CreateRecipes = () => {
     name: "",
     ingredients: [],
     instructions: "",
-    imageUrl: "",
+    image: "",
     cookingTime: 0,
     user: userId,
   });
@@ -35,9 +35,10 @@ const CreateRecipes = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log(recipe);
     e.preventDefault();
     try {
-      await axios.post("https://localhost:3003/recipes", recipe);
+      await axios.post("http://localhost:3003/recipes", recipe);
       alert("recipes successfully created");
     } catch (err) {
       console.error(err);
@@ -75,12 +76,12 @@ const CreateRecipes = () => {
           value={recipe.instructions}
           onChange={handleChange}
         ></textarea>
-        <label htmlFor="imageUrl">Image URL</label>
+        <label htmlFor="image">Image URL</label>
         <input
           type="text"
-          id="imageUrl"
-          name="imageUrl"
-          value={recipe.imageUrl}
+          id="image"
+          name="image"
+          value={recipe.image}
           onChange={handleChange}
         />
         <label htmlFor="cookingTime">Cooking Time (minutes)</label>
