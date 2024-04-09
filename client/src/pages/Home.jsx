@@ -37,10 +37,14 @@ const Home = () => {
         userId,
         recipeId,
       });
-      console.log(response.data);
+      setSavedRecipes(response.data.savedRecipes);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const isRecipeSaved = (recipeId) => {
+    return savedRecipes.includes(recipeId);
   };
 
   return (
@@ -51,7 +55,12 @@ const Home = () => {
           <li key={recipe._id}>
             <div>
               <h2>{recipe.name}</h2>
-              <button onClick={() => saveRecipe(recipe._id)}>Save</button>
+              <button
+                onClick={() => saveRecipe(recipe._id)}
+                disabled={isRecipeSaved(recipe._id)}
+              >
+                {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+              </button>
             </div>
             <div>
               <p>{recipe.instructions}</p>
