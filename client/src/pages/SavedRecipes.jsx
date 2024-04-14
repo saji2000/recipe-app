@@ -12,7 +12,6 @@ const savedRecipes = () => {
         const response = await axios.get(
           `http://localhost:3003/recipes/savedRecipes/${userId}`
         );
-        console.log(response.data);
         setSavedRecipes(response.data.recipes);
       } catch (err) {
         console.error(err);

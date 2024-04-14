@@ -33,10 +33,14 @@ const Home = () => {
 
   const saveRecipe = async (recipeId) => {
     try {
-      const response = await axios.put("http://localhost:3003/recipes", {
-        userId,
-        recipeId,
-      });
+      const response = await axios.put(
+        "http://localhost:3003/recipes",
+        {
+          userId,
+          recipeId,
+        },
+        { headers: { authorization: "sdfsfs" } }
+      );
       setSavedRecipes(response.data.savedRecipes);
     } catch (err) {
       console.error(err);
