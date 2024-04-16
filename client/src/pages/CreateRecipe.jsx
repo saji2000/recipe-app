@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useGetUser } from "../hooks/useGetUser";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 // Create Recipe Page
 const CreateRecipes = () => {
@@ -16,6 +17,7 @@ const CreateRecipes = () => {
     user: userId,
   });
 
+  const [cookies, _] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -41,7 +43,9 @@ const CreateRecipes = () => {
     console.log(recipe);
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3003/recipes", recipe);
+      await axios.post("http://localhost:3003/recipes", recipe, {
+        headers: { authorization: cookies.access_token },
+      });
       alert("recipes successfully created");
       navigate("/");
     } catch (err) {

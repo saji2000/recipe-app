@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useGetUser } from "../hooks/useGetUser.js";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const userId = useGetUser();
+  const [cookies, _] = useCookies(["access_token"]);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -28,7 +30,10 @@ const Home = () => {
       }
     };
     fetchRecipe();
-    fetchSavedRecipe();
+
+    if (cookies.access_token) {
+      fetchSavedRecipe();
+    }
   }, []);
 
   const saveRecipe = async (recipeId) => {
@@ -39,7 +44,7 @@ const Home = () => {
           userId,
           recipeId,
         },
-        { headers: { authorization: "sdfsfs" } }
+        { headers: { authorization: cookies.access_token } }
       );
       setSavedRecipes(response.data.savedRecipes);
     } catch (err) {
